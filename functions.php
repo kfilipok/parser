@@ -10,7 +10,11 @@ function GetIdByAddr($adresString){
     $addrArr = explode('/', $adresString);
     return $addrArr[4];
 }
-
+//Функция из ссылки получает маркетплейс
+function GetMarketplace($adresString){
+    $addrArr = explode('/', $adresString);
+    return $addrArr[2];
+}
 //Функция из id товара получает ссылку на вайлюерриз с товаром
 function GetObjById($pwid, $Wlink){
     $result = file_get_contents($Wlink . $pwid);

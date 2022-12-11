@@ -8,6 +8,8 @@ $query = mysqli_query($link, "SELECT * FROM `products` WHERE `uid`='" . $Uid . "
 while ($temp = mysqli_fetch_assoc($query)) {
     if ($temp['uid'] == $Uid) {
         $obj = GetObjById($temp['pwid'], $Wlink);
+        //id товара в системе
+        $data['id'] = $temp['id'];
         //Намиенование товара
         $data['name'] = $obj->data->products[0]->name;
         //Фирма товара
