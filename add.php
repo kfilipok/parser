@@ -16,6 +16,12 @@ require_once "functions.php";
                     <label for="addr" class="form-label">Введите адрес товара</label>
                     <textarea class="form-control" name="adress" id="addr" rows="2"></textarea>
                 </div>
+                <label for="alertPrice" class="form-label">Введите  отслеживаемую цену</label>
+                <div class="input-group mb-3">
+                   
+                    <input type="text" class="form-control" name="alertPrice" aria-label="Amount (to the nearest dollar)">
+                    <span class="input-group-text">руб.</span>
+                </div>
                 <button name="addr_submit" value="Отправить" type="submit" class="btn btn-primary mb-3">Отправить</button>
             </form>
         </div>
