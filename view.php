@@ -7,7 +7,7 @@ require_once 'functions.php';
 $query = mysqli_query($link, "SELECT * FROM `products` WHERE `uid`='" . $Uid . "'");
 while ($temp = mysqli_fetch_assoc($query)) {
     if ($temp['uid'] == $Uid) {
-        $obj = GetObjById($temp['pwid'], $Wlink);
+        $obj = GetObjById($temp['pwid']);
         //id товара в системе
         $data['id'] = $temp['id'];
         //Намиенование товара

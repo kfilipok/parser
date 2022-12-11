@@ -15,9 +15,9 @@ function GetMarketplace($adresString){
     $addrArr = explode('/', $adresString);
     return $addrArr[2];
 }
-//Функция из id товара получает ссылку на вайлюерриз с товаром
-function GetObjById($pwid, $Wlink){
-    $result = file_get_contents($Wlink . $pwid);
+//Функция из id товара получает ссылку на вайлюерриз с товаром, Wlink - ссылка для парсинга, она неизменна
+function GetObjById($pwid){
+    $result = file_get_contents(WLINK . $pwid);
     $obj = json_decode($result);
     return $obj;
 }
