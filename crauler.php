@@ -64,3 +64,6 @@ $headers .= 'Content-type: text/html; charset=utf-8' . "\r\n";
 
 mail($to, $subject, $message,  $headers);
 
+//Ссылка для контроля товаров по низким ценам
+
+//https://catalog.wb.ru/catalog/men_clothes1/catalog?appType=1&couponsGeo=2,12,3,18,15,21,101&curr=rub&dest=-1029256,-51490,-1703097,123585791&emp=0&kind=1&lang=ru&locale=ru&page=1&pricemarginCoeff=1.0&reg=0&regions=80,64,83,4,38,33,70,82,69,68,86,75,30,40,48,1,22,66,31,71&sort=priceup&spp=0&subject=11;147;216;2287;4575
