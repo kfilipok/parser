@@ -35,7 +35,8 @@ $goods = '<hr>';
 foreach ($product as $key => $data) {
     $goods .= '<a href='.$data['link'].'><strong>' . $data['name'] . '</strong></a><br>';
     $goods .= '<strong>Стоимость</strong> - ' . $data['salePrice'] . ' руб.<br>';
-    $goods .= 'Перейти и купить <br><hr>';
+    $goods .= 'Минимальная цена - '. $data['lowestPrise'] . ' руб.<br>';
+    $goods .= '<a href='.$data['link'].'>Перейти и купить </a><br><hr>';
 }
 print_r($goods);
 $message = '
@@ -44,20 +45,20 @@ $message = '
   <title>Товары для покупки</title>
 </head>
 <body>
-  <p>Товары для покупки!</p>
+  <p>Цены на следующие товары могут вас заинетресовать</p>
   '. $goods .'
 </body>
 </html>
 ';
 // несколько получателей
-$to = 'yafilipenko$yandex.ru, kfilipenko@yandex.ru'; // обратите внимание на запятую
+$to = 'kfilipenko@yandex.ru'; // обратите внимание на запятую
 
 // тема письма
-$subject = 'Покупка';
+$subject = 'Уведомление об изменении цен';
 // Для отправки HTML-письма должен быть установлен заголовок Content-type
 $headers  = 'MIME-Version: 1.0' . "\r\n";
 $headers .= 'Content-type: text/html; charset=utf-8' . "\r\n";
-
+$headers .= 'From: Best Cost <bcost@noreply.ru>' . "\r\n";
 // $headers[] = 'From: Best Price <bestprice@noreply.ru>';
 // $headers[] = 'Cc: birthdayarchive@example.com';
 // $headers[] = 'Bcc: birthdaycheck@example.com';

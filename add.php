@@ -1,14 +1,13 @@
 <?
-require_once 'header.html';
+// require_once 'header.html';
 require_once "functions.php";
 ?>
-
 
 <div class="container">
     <div class="row gx-5">
         <div class="col">
         </div>
-        <div class="col">
+        <div class="col-8">
         
 
             <form action="db.php" method="POST">
@@ -33,4 +32,4 @@ require_once "functions.php";
 
 
 
-<? require_once 'footer.html' ?>
+<? //require_once 'footer.html' ?>
