@@ -16,15 +16,15 @@ while ($temp = mysqli_fetch_assoc($query)) {
 
     //Если цена товара изменилась
     if($data['salePrice'] != $temp['last_price']){
-        //Если цена товара  приблизилась к средней цене ближе чем на BEST_PRICE, собираем данные в массив $product
-        if ($data['salePrice'] - $data['averagePrice'] <= BEST_PRICE) {
-            $data['alertType'] = 'minLowestPrice';
+        //Если примерная цена товара  приблизилась к отслеживаемой цене ближе чем на BEST_PRICE, собираем данные в массив $product
+        if ($data['averagePrice'] - $data['alertPrice'] <= BEST_PRICE) {
+            $data['alertType'] = 'minAveragePrice';
             $data['name'] = $obj->data->products[0]->name;
             $data['link'] = 'https://www.wildberries.ru/catalog/'.$temp['pwid'].'/detail.aspx';
             $product[] = $data;
         }
-        //Если цена товара стала ниже или равна отслеживаемой цене, собираем данные в массив $product
-        if ($data['salePrice'] <= $data['alertPrice']) {
+        //Если примерная цена товара стала ниже или равна отслеживаемой цене, собираем данные в массив $product
+        if ($data['averagePrice'] <= $data['alertPrice']) {
             $data['alertType'] = 'minAlertPrice';
             $data['name'] = $obj->data->products[0]->name;
             $data['link'] = 'https://www.wildberries.ru/catalog/'.$temp['pwid'].'/detail.aspx';
