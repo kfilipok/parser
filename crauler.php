@@ -3,31 +3,40 @@ require_once 'functions.php';
 
 $query = mysqli_query($link, "SELECT * FROM `products` WHERE `uid` = $Uid AND `status` = '1'");
 while ($temp = mysqli_fetch_assoc($query)) {
+    //Проверяем сайт по ай ди товара
     $obj = GetObjById($temp['pwid']);
+    //Цена, последний раз полученная на сайте вайлдберриз
+    $lastPrice = $temp['last_price'];
     //Отслеживаемая цена
     $data['alertPrice'] = $temp['alert_price'];
     //цена товара в данный момент
     $data['salePrice'] = substr($obj->data->products[0]->salePriceU, 0, strlen($str) - 2);
-    //Самая низкая цена за всю историю
-    $data['lowestPrise'] = substr($obj->data->products[0]->averagePrice, 0, strlen($str) - 2);
-    
-    //Если цена товара приблизилась к минимальной цене ближе чем на BEST_PRICE
-    if ($data['salePrice'] - $data['lowestPrise'] <= BEST_PRICE) {
-        $data['alertType'] = 'minLowestPrice';
-        $data['name'] = $obj->data->products[0]->name;
-        $data['link'] = 'https://www.wildberries.ru/catalog/'.$temp['pwid'].'/detail.aspx';
-        $product[] = $data;
+    //Средняя ценна (примерно равна цене с личной скидкой)
+    $data['averagePrice'] = substr($obj->data->products[0]->averagePrice, 0, strlen($str) - 2);
+
+    //Если цена товара изменилась
+    if($data['salePrice'] != $temp['last_price']){
+        //Если цена товара  приблизилась к средней цене ближе чем на BEST_PRICE, собираем данные в массив $product
+        if ($data['salePrice'] - $data['averagePrice'] <= BEST_PRICE) {
+            $data['alertType'] = 'minLowestPrice';
+            $data['name'] = $obj->data->products[0]->name;
+            $data['link'] = 'https://www.wildberries.ru/catalog/'.$temp['pwid'].'/detail.aspx';
+            $product[] = $data;
+        }
+        //Если цена товара стала ниже или равна отслеживаемой цене, собираем данные в массив $product
+        if ($data['salePrice'] <= $data['alertPrice']) {
+            $data['alertType'] = 'minAlertPrice';
+            $data['name'] = $obj->data->products[0]->name;
+            $data['link'] = 'https://www.wildberries.ru/catalog/'.$temp['pwid'].'/detail.aspx';
+            $product[] = $data;
+        }
+        //Сохраняем salePrice в БД для последующей корректировки
+        mysqli_query($link, "UPDATE `products` SET `last_price` = '" . $data['salePrice'] . "' WHERE `id` = '" . $temp['id'] . "'");
     }
-    //Если цена товара ниже или равна отслеживаемой цене
-    if ($data['salePrice'] <= $data['alertPrice']) {
-        $data['alertType'] = 'minAlertPrice';
-        $data['name'] = $obj->data->products[0]->name;
-        $data['link'] = 'https://www.wildberries.ru/catalog/'.$temp['pwid'].'/detail.aspx';
-        $product[] = $data;
-    }
+
 }
 echo ('<pre>');
-print_r($product);
+var_dump($product);
 
 if (!isset($product))
     die();
@@ -35,7 +44,7 @@ $goods = '<hr>';
 foreach ($product as $key => $data) {
     $goods .= '<a href='.$data['link'].'><strong>' . $data['name'] . '</strong></a><br>';
     $goods .= '<strong>Стоимость</strong> - ' . $data['salePrice'] . ' руб.<br>';
-    $goods .= 'Минимальная цена - '. $data['lowestPrise'] . ' руб.<br>';
+    $goods .= 'Рекомендуемая цена - '. $data['averagePrice'] . ' руб.<br>';
     $goods .= '<a href='.$data['link'].'>Перейти и купить </a><br><hr>';
 }
 print_r($goods);
