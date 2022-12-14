@@ -32,8 +32,8 @@ function ShowCard(array $arr){
     echo "
         <hr>
         <h5>" . $arr['name'] . "</h5>
-        <p><strong>Реальная цена:</strong> " . $arr['salePrice'] . "<br>
-                                <strong>Минимальная цена:</strong> " . $arr['lowestPrise'] . "<br>
+        <p><strong>Цена до скидок:</strong> " . $arr['salePrice'] . "<br>
+                                <strong>Примерная цена:</strong> " . $arr['lowestPrise'] . "<br>
                                 <strong>Приемлемая цена:</strong> " . $arr['alertPrise'] . "<br>
                                 <strong>Бренд:</strong> " . $arr['brand'] . "<br>
         </p>
