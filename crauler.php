@@ -43,8 +43,8 @@ if (!isset($product))
 $goods = '<hr>';
 foreach ($product as $key => $data) {
     $goods .= '<a href='.$data['link'].'><strong>' . $data['name'] . '</strong></a><br>';
-    $goods .= '<strong>Стоимость</strong> - ' . $data['salePrice'] . ' руб.<br>';
-    $goods .= 'Рекомендуемая цена - '. $data['averagePrice'] . ' руб.<br>';
+    $goods .= '<strong>Стоимость (без скидок)</strong> - ' . $data['salePrice'] . ' руб.<br>';
+    $goods .= 'Средняя цена - '. $data['averagePrice'] . ' руб.<br>';
     $goods .= '<a href='.$data['link'].'>Перейти и купить </a><br><hr>';
 }
 print_r($goods);
@@ -54,7 +54,7 @@ $message = '
   <title>Товары для покупки</title>
 </head>
 <body>
-  <p>Цены на следующие товары могут вас заинетресовать</p>
+  <p>Цены на следующие товары изменились</p>
   '. $goods .'
 </body>
 </html>
