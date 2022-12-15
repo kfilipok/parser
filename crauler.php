@@ -1,10 +1,12 @@
 <?
 require_once 'functions.php';
 
-$query = mysqli_query($link, "SELECT * FROM `products` WHERE `uid` = $Uid AND `status` = '1'");
+$query = mysqli_query($link, "SELECT * FROM `products` WHERE `status` = '1'");
 while ($temp = mysqli_fetch_assoc($query)) {
     //Проверяем сайт по ай ди товара
     $obj = GetObjById($temp['pwid']);
+    //сохраняем ай ди порльзователя
+    $userId = $temp['uid'];
     //Цена, последний раз полученная на сайте вайлдберриз
     $lastPrice = $temp['last_price'];
     //Отслеживаемая цена
@@ -21,14 +23,14 @@ while ($temp = mysqli_fetch_assoc($query)) {
             $data['alertType'] = 'minAveragePrice';
             $data['name'] = $obj->data->products[0]->name;
             $data['link'] = 'https://www.wildberries.ru/catalog/'.$temp['pwid'].'/detail.aspx';
-            $product[] = $data;
+            $product[$userId][] = $data;
         }
         //Если примерная цена товара стала ниже или равна отслеживаемой цене, собираем данные в массив $product
         if ($data['averagePrice'] <= $data['alertPrice']) {
             $data['alertType'] = 'minAlertPrice';
             $data['name'] = $obj->data->products[0]->name;
             $data['link'] = 'https://www.wildberries.ru/catalog/'.$temp['pwid'].'/detail.aspx';
-            $product[] = $data;
+            $product[$userId][] = $data;
         }
         //Сохраняем salePrice в БД для последующей корректировки
         mysqli_query($link, "UPDATE `products` SET `last_price` = '" . $data['salePrice'] . "' WHERE `id` = '" . $temp['id'] . "'");
@@ -36,43 +38,73 @@ while ($temp = mysqli_fetch_assoc($query)) {
 
 }
 echo ('<pre>');
-var_dump($product);
+print_r($product);
 
 if (!isset($product))
     die();
-$goods = '<hr>';
-foreach ($product as $key => $data) {
-    $goods .= '<a href='.$data['link'].'><strong>' . $data['name'] . '</strong></a><br>';
-    $goods .= '<strong>Стоимость (без скидок)</strong> - ' . $data['salePrice'] . ' руб.<br>';
-    $goods .= 'Средняя цена - '. $data['averagePrice'] . ' руб.<br>';
-    $goods .= '<a href='.$data['link'].'>Перейти и купить </a><br><hr>';
+    
+foreach ($product as $uId => $values) {
+    $goods = '<hr>';
+    foreach ($values as $data) {
+        $goods .= '<a href='.$data['link'].'><strong>' . $data['name'] . '</strong></a><br>';
+        $goods .= '<strong>Стоимость (без скидок)</strong> - ' . $data['salePrice'] . ' руб.<br>';
+        $goods .= 'Средняя цена - '. $data['averagePrice'] . ' руб.<br>';
+        $goods .= '<a href='.$data['link'].'>Перейти и купить </a><br><hr>';
+        print_r($goods);
+        
+        $message = '
+                    <html>
+                    <head>
+                    <title>Товары для покупки</title>
+                    </head>
+                    <body>
+                    <p>Цены на следующие товары изменились</p>
+                    '. $goods .'
+                    </body>
+                    </html>
+                    ';
+    }
+    $to = get_userdata($uId, $link)['email'];
+    $subject = 'Уведомление об изменении цен';
+    // Для отправки HTML-письма должен быть установлен заголовок Content-type
+    $headers  = 'MIME-Version: 1.0' . "\r\n";
+    $headers .= 'Content-type: text/html; charset=utf-8' . "\r\n";
+    $headers .= 'From: Best Cost <bcost@noreply.ru>' . "\r\n";
+    mail($to, $subject, $message,  $headers);
 }
-print_r($goods);
-$message = '
-<html>
-<head>
-  <title>Товары для покупки</title>
-</head>
-<body>
-  <p>Цены на следующие товары изменились</p>
-  '. $goods .'
-</body>
-</html>
-';
+// $goods = '<hr>';
+// foreach ($product as $key => $data) {
+//     $goods .= '<a href='.$data['link'].'><strong>' . $data['name'] . '</strong></a><br>';
+//     $goods .= '<strong>Стоимость (без скидок)</strong> - ' . $data['salePrice'] . ' руб.<br>';
+//     $goods .= 'Средняя цена - '. $data['averagePrice'] . ' руб.<br>';
+//     $goods .= '<a href='.$data['link'].'>Перейти и купить </a><br><hr>';
+// }
+// print_r($goods);
+// $message = '
+// <html>
+// <head>
+//   <title>Товары для покупки</title>
+// </head>
+// <body>
+//   <p>Цены на следующие товары изменились</p>
+//   '. $goods .'
+// </body>
+// </html>
+// ';
 // несколько получателей
-$to = 'kfilipenko@yandex.ru'; // обратите внимание на запятую
+// $to = 'kfilipenko@yandex.ru'; // обратите внимание на запятую
 
 // тема письма
-$subject = 'Уведомление об изменении цен';
-// Для отправки HTML-письма должен быть установлен заголовок Content-type
-$headers  = 'MIME-Version: 1.0' . "\r\n";
-$headers .= 'Content-type: text/html; charset=utf-8' . "\r\n";
-$headers .= 'From: Best Cost <bcost@noreply.ru>' . "\r\n";
+// $subject = 'Уведомление об изменении цен';
+// // Для отправки HTML-письма должен быть установлен заголовок Content-type
+// $headers  = 'MIME-Version: 1.0' . "\r\n";
+// $headers .= 'Content-type: text/html; charset=utf-8' . "\r\n";
+// $headers .= 'From: Best Cost <bcost@noreply.ru>' . "\r\n";
 // $headers[] = 'From: Best Price <bestprice@noreply.ru>';
 // $headers[] = 'Cc: birthdayarchive@example.com';
 // $headers[] = 'Bcc: birthdaycheck@example.com';
 
-mail($to, $subject, $message,  $headers);
+// mail($to, $subject, $message,  $headers);
 
 //Ссылка для контроля товаров по низким ценам
 
