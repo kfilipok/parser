@@ -6,9 +6,9 @@ require_once 'functions.php';
 <?
 // echo ('<pre>');
 
-$query = mysqli_query($link, "SELECT * FROM `products` WHERE `uid`='" . $Uid . "'");
+$query = mysqli_query($link, "SELECT * FROM `products` WHERE `uid`='" . $_COOKIE['id'] . "'");
 while ($temp = mysqli_fetch_assoc($query)) {
-    if ($temp['uid'] == $Uid) {
+    if ($temp['uid'] == $_COOKIE['id']) {
         $obj = GetObjById($temp['pwid']);
         //id товара в системе
         $data['id'] = $temp['id'];
@@ -48,7 +48,10 @@ function ShowCard(array $arr){
     <div class="col-sm-1">
     </div>
     <div class="col-sm-10">
-        <? foreach ($products as $value) ShowCard($value); ?>
+        <?if(isset($products)) foreach ($products as $value) ShowCard($value);
+         else
+            echo ("Товары не добавлены");  
+        ?>
     </div>
     <div class="col-sm-1">
     </div>

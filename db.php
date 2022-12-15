@@ -24,7 +24,7 @@ if(isset($_POST['addr_submit']) && $_POST['addr_submit'] == 'Отправить'
     if (mysqli_num_rows($query) > 0)
         $pwdExists = true;
     if (!$pwdExists)
-        mysqli_query($link, "INSERT INTO `products` (`marketplace`, `pwid`, `uid`, `status`, `alert_price`, `last_price`, `tstamp`) VALUES('" . $marketPlace . "', '" . $pwid . "', '" . $Uid . "', '1', '"  . $alertPrice . "', '0', '". date("Y-m-d H:i:s") ."')");
+        mysqli_query($link, "INSERT INTO `products` (`marketplace`, `pwid`, `uid`, `status`, `alert_price`, `last_price`, `tstamp`) VALUES('" . $marketPlace . "', '" . $pwid . "', '" . $_COOKIE['id'] . "', '1', '"  . $alertPrice . "', '0', '". date("Y-m-d H:i:s") ."')");
     
     header('location: index.php');
 }

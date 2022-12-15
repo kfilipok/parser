@@ -27,9 +27,19 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ms-auto">
-                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#portfolio">Добавить</a></li>
-                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#about">Просмотр</a></li>
-                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#contact">Contact</a></li>
+                        
+                        <!-- <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#about">Просмотр</a></li> -->
+                        <?
+                        if (isset($_COOKIE['id']) and isset($_COOKIE['hash'])) {
+                            echo"<li class=\"nav-item mx-0 mx-lg-1\"><a class=\"nav-link py-3 px-0 px-lg-3 rounded\" href=\"#portfolio\">Добавить</a></li>";
+                            echo "<li class=\"nav-item mx-0 mx-lg-1\"><a class=\"nav-link py-3 px-0 px-lg-3 rounded\" href=\"#about\">Просмотр</a></li>";
+                            echo "<li class=\"nav-item mx-0 mx-lg-1\"><a class=\"nav-link py-3 px-0 px-lg-3 rounded\" href=\"profile.php\">Профиль</a></li>";
+                            
+                        }else{
+                            echo"<li class=\"nav-item mx-0 mx-lg-1\"><a class=\"nav-link py-3 px-0 px-lg-3 rounded\" href=\"register.php\">Регистрация</a></li>";
+                            echo"<li class=\"nav-item mx-0 mx-lg-1\"><a class=\"nav-link py-3 px-0 px-lg-3 rounded\" href=\"login.php\">Войти</a></li>";
+                        }
+                        ?>  
                     </ul>
                 </div>
             </div>
@@ -48,7 +58,7 @@
                     <div class="divider-custom-line"></div>
                 </div>
                 <!-- Masthead Subheading-->
-                <p class="masthead-subheading font-weight-light mb-0">Помогаем отслеживать цены</p>
+                <p class="masthead-subheading font-weight-light mb-0">Следим за ценами за вас</p>
             </div>
         </header>
         <!-- Portfolio Section-->
@@ -120,8 +130,8 @@
                             </div>
                             <img class="img-fluid" src="assets/img/portfolio/submarine.png" alt="..." />
                         </div>
-                    </div>
-                </div>  -->
+                    </div> 
+                </div> -->
             </div>
         </section>
         <!-- About Section-->
@@ -135,13 +145,18 @@
                     <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
                     <div class="divider-custom-line"></div>
                 </div>
-                <h2 class="page-section-heading text-center text-uppercase text-white">Просмотр отслеживаемых товаров</h2>
+                <?
+                if (isset($_COOKIE['id']) and isset($_COOKIE['hash'])) 
+                    echo"<h2 class=\"page-section-heading text-center text-uppercase text-white\">Просмотр отслеживаемых товаров</h2>";
+                else
+                    echo"<h2 class=\"page-section-heading text-center text-uppercase text-white\">Просмотр отслеживаемых товаров недоступен</h2>";
+                ?>
                 <!-- About Section Content-->
                 <div class="row">
-                    <!-- <div class="col-lg-4 ms-auto"><p class="lead">Freelancer is a free bootstrap theme created by Start Bootstrap. The download includes the complete source files including HTML, CSS, and JavaScript as well as optional SASS stylesheets for easy customization.</p></div> -->
+                    <!-- <div class="col-lg-12 ms-auto"><p class="lead">Доступен после регистрации</p></div> -->
                     <!-- <div class="col-lg-4 me-auto"><p class="lead">You can create your own custom avatar for the masthead, change the icon in the dividers, and add your email address to the contact form to make it fully functional!</p></div> -->
                 <?
-                include 'view.php';
+                if (isset($_COOKIE['id']) and isset($_COOKIE['hash'])) include 'view.php';
                 ?>
                 </div>
                 <!-- About Section Button-->
