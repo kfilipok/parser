@@ -14,6 +14,13 @@ while ($temp = mysqli_fetch_assoc($query)) {
         $data['id'] = $temp['id'];
         //Намиенование товара
         $data['name'] = $obj->data->products[0]->name;
+        //Статус товара
+        if ($temp['status'] == '1')
+            $data['status'] = "<a class=\"btn  btn-outline-light \" href=db.php?action=untrack&id=".$temp['id'].">Отклчить слежение</a>";
+        else 
+            $data['status'] = "<a class=\"btn  btn-outline-light \" href=db.php?action=track&id=".$temp['id'].">Включить слежение</a>";
+        //Кнопка удаления товара
+        $data['del'] = "<a class=\"btn  btn-outline-light btn-danger\" href=db.php?action=del&id=".$temp['id'].">Удалить</a>";
         //Фирма товара
         $data['brand'] = $obj->data->products[0]->brand;
         //Реальная цена товара
@@ -28,17 +35,20 @@ while ($temp = mysqli_fetch_assoc($query)) {
         $products[] = $data;
     }
 }
+// echo '<pre>';
+// print_r($data);
 function ShowCard(array $arr){
     echo "
         <hr>
         <h5>" . $arr['name'] . "</h5>
-        <p><strong>Цена до скидок:</strong> " . $arr['salePrice'] . "<br>
+        <p>                     
+                                <strong>Цена до скидок:</strong> " . $arr['salePrice'] . "<br>
                                 <strong>Примерная цена:</strong> " . $arr['lowestPrise'] . "<br>
                                 <strong>Приемлемая цена:</strong> " . $arr['alertPrise'] . "<br>
                                 <strong>Бренд:</strong> " . $arr['brand'] . "<br>
         </p>
-        <a class=\"btn btn-xl btn-outline-light\" target=\"_blank\" href=\"" . $arr['link'] . "\"><i class=\"fas fa-download me-2\"></i>
-        Перейти на WB</a>
+        <a class=\"btn  btn-outline-light btn-secondary\" target=\"_blank\" href=\"" . $arr['link'] . "\">Перейти на WB</a>
+        ".$arr['status']." ".$arr['del']." 
         <hr>";
     }
 

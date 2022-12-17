@@ -27,5 +27,17 @@ if(isset($_POST['addr_submit']) && $_POST['addr_submit'] == 'Отправить'
         mysqli_query($link, "INSERT INTO `products` (`marketplace`, `pwid`, `uid`, `status`, `alert_price`, `last_price`, `tstamp`) VALUES('" . $marketPlace . "', '" . $pwid . "', '" . $_COOKIE['id'] . "', '1', '" . $alertPrice . "', '0', '" . date("Y-m-d H:i:s") . "')");
         header('location: index.php');
     }else header('location: index.php?prod=exists');
+//////Отключение слежения
+}else if(isset($_GET['action']) && $_GET['action'] == 'untrack'){
+    mysqli_query($link, "UPDATE `products` SET `status`='0'WHERE `id` = " . $_GET['id']);
+    header('Location: index.php');
+    //////Включение слежения
+}else if(isset($_GET['action']) && $_GET['action'] == 'track'){
+    mysqli_query($link, "UPDATE `products` SET `status`='1'WHERE `id` = " . $_GET['id']);
+    header('Location: index.php');
+///////////Удаление товара
+}else if(isset($_GET['action']) && $_GET['action'] == 'del'){
+    mysqli_query($link, "DELETE FROM `products` WHERE `id` = " . $_GET['id']);
+    header('Location: index.php');
 }
 // 
