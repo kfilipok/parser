@@ -17,9 +17,9 @@ while ($temp = mysqli_fetch_assoc($query)) {
         //Фирма товара
         $data['brand'] = $obj->data->products[0]->brand;
         //Реальная цена товара
-        $data['salePrice'] = substr($obj->data->products[0]->salePriceU, 0, strlen($str) - 2);
+        $data['salePrice'] = substr($obj->data->products[0]->salePriceU, 0, strlen($obj->data->products[0]->salePriceU) - 2);
         //Самая низкая цена товара за всю историю
-        $data['lowestPrise'] = substr($obj->data->products[0]->averagePrice, 0, strlen($str) - 2);
+        $data['lowestPrise'] = substr($obj->data->products[0]->averagePrice, 0, strlen($obj->data->products[0]->averagePrice) - 2);
         //Отслеживаемая цена
         $data['alertPrise'] = $temp['alert_price'];
         //Ссылка на вайлдберриз
