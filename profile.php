@@ -4,13 +4,14 @@ require_once 'functions.php';
 $query = mysqli_query($link, "SELECT email FROM users WHERE id = '". $_COOKIE['id'] ."'");
 $email = mysqli_fetch_assoc($query)['email'];
 
-$goodsInTracking =  $goodsNotTracking = 0;
+$goodsInTracking =  $goodsAdded = 0;
 $query = mysqli_query($link, "SELECT status FROM products WHERE uid = '" . $_COOKIE['id'] . "'");
 while ($temp = mysqli_fetch_assoc($query)) {
-    if ($temp['status'] == 1)
+    if ($temp['status'] == 1) {
         $goodsInTracking++;
-    else
-        $goodsNotTracking++;
+        $goodsAdded++;
+    }else
+        $goodsAdded++;
 }
 ?>
 <!DOCTYPE html>
@@ -34,17 +35,25 @@ while ($temp = mysqli_fetch_assoc($query)) {
     <body id="page-top">
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
-            <div class="container">  
-            <a class="navbar-brand" href="index.php">bcost.ru</a>
+            <div class="container">
+                <a class="navbar-brand" href="#page-top">bcost.ru</a>
                 <button class="navbar-toggler text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     Menu
                     <i class="fas fa-bars"></i>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ms-auto">
-                        <!-- <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#portfolio">Добавить</a></li>
-                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#about">Просмотр</a></li>
-                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#contact">Contact</a></li> -->
+                        
+                        <!-- <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#about">Просмотр</a></li> -->
+                        <?
+                        if (isset($_COOKIE['id']) and isset($_COOKIE['hash'])) {
+                            echo"<li class=\"nav-item mx-0 mx-lg-1\"><a class=\"nav-link py-3 px-0 px-lg-3 rounded\" href=\"index.php\">Главная</a></li>";
+                            
+                        }else{
+                            echo"<li class=\"nav-item mx-0 mx-lg-1\"><a class=\"nav-link py-3 px-0 px-lg-3 rounded\" href=\"register.php\">Регистрация</a></li>";
+                            echo"<li class=\"nav-item mx-0 mx-lg-1\"><a class=\"nav-link py-3 px-0 px-lg-3 rounded\" href=\"login.php\">Войти</a></li>";
+                        }
+                        ?>  
                     </ul>
                 </div>
             </div>
@@ -73,7 +82,7 @@ while ($temp = mysqli_fetch_assoc($query)) {
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item"><strong>Email:</strong> <? echo $email ?></li>
                             <li class="list-group-item"><strong>Уровень профиля:</strong> в разработке</li>
-                            <li class="list-group-item"><strong>Товаров добавлено:</strong> <? echo $goodsNotTracking ?></li>
+                            <li class="list-group-item"><strong>Товаров добавлено:</strong> <? echo $goodsAdded ?></li>
                             <li class="list-group-item"><strong>Товаров отслеживается:</strong> <? echo $goodsInTracking ?></li>
                             <a href="logout.php" class="btn btn-danger active" role="button" aria-pressed="true">Выйти</a>
                         </ul>

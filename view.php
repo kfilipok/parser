@@ -43,8 +43,8 @@ function ShowCard(array $arr){
         <h5>" . $arr['name'] . "</h5>
         <p>                     
                                 <strong>Цена до скидок:</strong> " . $arr['salePrice'] . "<br>
-                                <strong>Примерная цена:</strong> " . $arr['lowestPrise'] . "<br>
-                                <strong>Приемлемая цена:</strong> " . $arr['alertPrise'] . "<br>
+                                <strong>Средняя цена:</strong> " . $arr['lowestPrise'] . "<br>
+                                <strong>Ваша цена:</strong> " . $arr['alertPrise'] . "<br>
                                 <strong>Бренд:</strong> " . $arr['brand'] . "<br>
         </p>
         <a class=\"btn  btn-outline-light btn-secondary\" target=\"_blank\" href=\"" . $arr['link'] . "\">Перейти на WB</a>
