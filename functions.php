@@ -72,8 +72,7 @@ function AveragePrice($wid)
     $today['date'] = date("d.m.y");
     //Сохраняем текущую цену в архив истории цен
     $priceHistoryArr[] = $today;
-    // echo ('<pre>');
-// print_r($priceHistoryArr);
+    $summPrice = 0;
     foreach ($priceHistoryArr as $day) {
         $summPrice += $day['price'];
     }
