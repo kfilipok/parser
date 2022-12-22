@@ -10,6 +10,8 @@ $query = mysqli_query($link, "SELECT * FROM `products` WHERE `uid`='" . $_COOKIE
 while ($temp = mysqli_fetch_assoc($query)) {
     if ($temp['uid'] == $_COOKIE['id']) {
         $obj = GetObjById($temp['pwid']);
+        // echo "<pre>";
+        // print_r($obj);
         //id товара в системе
         $data['id'] = $temp['id'];
         //Намиенование товара
@@ -26,7 +28,8 @@ while ($temp = mysqli_fetch_assoc($query)) {
         //Реальная цена товара
         $data['salePrice'] = substr($obj->data->products[0]->salePriceU, 0, strlen($obj->data->products[0]->salePriceU) - 2);
         //Самая низкая цена товара за всю историю
-        $data['lowestPrise'] = substr($obj->data->products[0]->averagePrice, 0, strlen($obj->data->products[0]->averagePrice) - 2);
+        // $data['lowestPrise'] = substr($obj->data->products[0]->averagePrice, 0, strlen($obj->data->products[0]->averagePrice) - 2);
+        $data['lowestPrise'] = AveragePrice($temp['pwid']);
         //Отслеживаемая цена
         $data['alertPrise'] = $temp['alert_price'];
         //Ссылка на вайлдберриз
@@ -48,7 +51,7 @@ function ShowCard(array $arr){
                                 <strong>Бренд:</strong> " . $arr['brand'] . "<br>
         </p>
         <a class=\"btn  btn-outline-light btn-secondary\" target=\"_blank\" href=\"" . $arr['link'] . "\">Перейти на WB</a>
-        ".$arr['status']." ".$arr['del']." 
+        ".$arr['status']."        ".$arr['del']." 
         <hr>";
     }
 

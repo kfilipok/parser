@@ -50,7 +50,7 @@
                 <!-- Masthead Avatar Image-->
                 <!-- <img class="masthead-avatar mb-5" src="assets/img/avataaars.svg" alt="..." /> -->
                 <!-- Masthead Heading-->
-                <h1 class="masthead-heading text-uppercase mb-0">Best Cost.ru</h1>
+                <h1 class="masthead-heading text-uppercase mb-0">Следим за Wildberries.ru</h1>
                 <!-- Icon Divider-->
                 <div class="divider-custom divider-light">
                     <div class="divider-custom-line"></div>
@@ -58,7 +58,22 @@
                     <div class="divider-custom-line"></div>
                 </div>
                 <!-- Masthead Subheading-->
-                <p class="masthead-subheading font-weight-light mb-0">Следим за ценами за вас</p>
+                <?
+                if (isset($_COOKIE['id']) and isset($_COOKIE['hash'])) {
+                    $helloMessage = "   <p class=\"lead\">
+                                            Мониторим цены...
+                                        </p>                
+                                    ";
+                } else {
+                    $helloMessage = "   <p class=\"lead\">
+                                            Зарегистрируйтесь<br>
+                                            Добавьте ссылки на товары<br>
+                                            При изменении цен на них мы направим уведомление
+                                        </p>                
+                                    ";
+                }
+                ?>
+                <p class="masthead-subheading font-weight-light mb-0"><? echo $helloMessage ?></p>
             </div>
         </header>
         <!-- Portfolio Section-->
