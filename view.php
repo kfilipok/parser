@@ -27,7 +27,7 @@ while ($temp = mysqli_fetch_assoc($query)) {
         //Кнопка удаления товара
         $data['del'] = "<a class=\"btn  btn-outline-light btn-danger\" href=db.php?action=del&id=".$temp['id'].">Удалить</a>";
         //График изменения цены
-        $data['graph'] = "<a class=\"btn  btn-outline-light \" target=\"_blank\" href=graph.php?wid=".$temp['pwid']."&brand=".$obj->data->products[0]->brand."&name=".$obj->data->products[0]->name.">График цены</a>";
+        $data['graph'] = "<a class=\"btn  btn-outline-light \" target=\"_blank\" href=graph.php?wid=".$temp['pwid']."&brand=".urlencode($obj->data->products[0]->brand)."&name=".urlencode($obj->data->products[0]->name).">График цены</a>";
         //Фирма товара
         $data['brand'] = $obj->data->products[0]->brand;
         //Реальная цена товара

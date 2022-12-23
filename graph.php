@@ -58,7 +58,8 @@ $data = json_encode($tempArr);
                         <!-- <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#about">Просмотр</a></li> -->
                         <?
                         if (isset($_COOKIE['id']) and isset($_COOKIE['hash'])) {
-                            echo"<li class=\"nav-item mx-0 mx-lg-1\"><a class=\"nav-link py-3 px-0 px-lg-3 rounded\" href=\"index.php\">Главная</a></li>";
+                            echo"<li class=\"nav-item mx-0 mx-lg-1\"><a class=\"nav-link py-3 px-0 px-lg-3 rounded\" href=\"#\" onclick=\"closeWindow(); return false;\">Закрыть</a></li>";
+                          //  echo "<a href=\"#\" onclick=\"closeWindow(); return false;\">Закрыть</a>";
                             
                         }else{
                             echo"<li class=\"nav-item mx-0 mx-lg-1\"><a class=\"nav-link py-3 px-0 px-lg-3 rounded\" href=\"register.php\">Регистрация</a></li>";
@@ -71,7 +72,7 @@ $data = json_encode($tempArr);
         </nav>
         <!-- Register Section-->
         <section class="page-section" id="contact">
-
+        <br><h2 class=" text-center text-secondary mb-0"><?echo $_GET['name'] ?></h2>
         </section>
 
 <!-- Готовим контейнер для диаграммы -->
@@ -141,6 +142,13 @@ phpArr = $.parseJSON('<?= $data ?>');
 
  //Ставим загрузку диаграммы на событие загрузки страницы
  window.addEventListener("load", Diagram); 
+
+//Закрытие окна вкладки
+ function closeWindow(){
+	// if (confirm('Вы действительно хотите закрыть страницу?')) {
+		window.close();
+	// }
+}
 </script>
 
 <noscript>
