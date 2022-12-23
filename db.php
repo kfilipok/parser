@@ -4,8 +4,10 @@ echo '<pre>';
 print_r($_REQUEST);
 //Добавление адреса для слежения
 if(isset($_POST['addr_submit']) && $_POST['addr_submit'] == 'Отправить'){
-    $pwid = GetIdByAddr($_POST['adress']);
-    $marketPlace = GetMarketplace($_POST['adress']);
+    // $pwid = GetIdByAddr($_POST['adress']);
+    $pwid = $_POST['wid'];
+    // $marketPlace = GetMarketplace($_POST['adress']);
+    $marketPlace = $_POST['marketplace'];
     //уходим от SQL injection
     $pwid = mysqli_real_escape_string($link, $pwid);
     $marketPlace = mysqli_real_escape_string($link, $marketPlace);

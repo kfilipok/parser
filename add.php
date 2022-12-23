@@ -1,5 +1,4 @@
 <?
-// require_once 'header.html';
 require_once "functions.php";
 
 if (isset($_COOKIE['id']) and isset($_COOKIE['hash'])) {
@@ -18,16 +17,10 @@ if (isset($_COOKIE['id']) and isset($_COOKIE['hash'])) {
         <div class="col-8">
         
 
-            <form action="db.php" method="POST">
+            <form action="addhandler.php" method="POST">
                 <div class="mb-5">
-                    <label for="addr" class="form-label">Введите адрес товара</label>
+                    <label for="addr" class="form-label">Введите адрес товара или его артикул</label>
                     <textarea <? echo $disabled ?> <? echo $placeholder ?> class="form-control" name="adress" id="addr" rows="2"   required></textarea>
-                </div>
-                <label for="alertPrice" class="form-label">Введите стоимость, при достижении которой вы получите уведомление</label>
-                <div class="input-group mb-3">
-                   
-                    <input <? echo $disabled ?> type="number" class="form-control" name="alertPrice" aria-label="Amount (to the nearest dollar)" required>
-                    <span class="input-group-text">руб.</span>
                 </div>
                 <button <? echo $disabled ?> name="addr_submit" value="Отправить" type="submit" class="btn btn-primary mb-3">Отправить</button>
             </form>
@@ -37,7 +30,3 @@ if (isset($_COOKIE['id']) and isset($_COOKIE['hash'])) {
         </div>
     </div>
     </div>
-
-
-
-<? //require_once 'footer.html' ?>

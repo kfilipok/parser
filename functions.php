@@ -43,8 +43,9 @@ function GetObjById($pwid){
 function PriceHistory($art)
 {
 
-    for ($busketNum = 1; $busketNum < 10; $busketNum++) {
-        $result = file_get_contents('https://basket-0' . $busketNum . '.wb.ru/vol' . substr($art, 0, -5) . '/part' . substr($art, 0, -3) . '/' . $art . '/info/price-history.json');
+    for ($busketNum = 1; $busketNum < 100; $busketNum++) {
+        if($busketNum < 10) $result = file_get_contents('https://basket-0' . $busketNum . '.wb.ru/vol' . substr($art, 0, -5) . '/part' . substr($art, 0, -3) . '/' . $art . '/info/price-history.json');
+        else $result = file_get_contents('https://basket-' . $busketNum . '.wb.ru/vol' . substr($art, 0, -5) . '/part' . substr($art, 0, -3) . '/' . $art . '/info/price-history.json');
         if (!$result)
             continue;
         else
