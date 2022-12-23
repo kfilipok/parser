@@ -1,6 +1,7 @@
 <?
 // require_once 'header.html';
 require_once 'functions.php';
+error_reporting(0);
 ?>
 
 <?
@@ -12,6 +13,8 @@ while ($temp = mysqli_fetch_assoc($query)) {
         $obj = GetObjById($temp['pwid']);
         // echo "<pre>";
         // print_r($obj);
+        //Артикул товара (ай ди в системе вайлберриз)
+        $data['wid'] = $temp['pwid'];
         //id товара в системе
         $data['id'] = $temp['id'];
         //Намиенование товара
@@ -23,6 +26,8 @@ while ($temp = mysqli_fetch_assoc($query)) {
             $data['status'] = "<a class=\"btn  btn-outline-light \" href=db.php?action=track&id=".$temp['id'].">Включить слежение</a>";
         //Кнопка удаления товара
         $data['del'] = "<a class=\"btn  btn-outline-light btn-danger\" href=db.php?action=del&id=".$temp['id'].">Удалить</a>";
+        //График изменения цены
+        $data['graph'] = "<a class=\"btn  btn-outline-light \" target=\"_blank\" href=graph.php?wid=".$temp['pwid']."&brand=".$obj->data->products[0]->brand."&name=".$obj->data->products[0]->name.">График цены</a>";
         //Фирма товара
         $data['brand'] = $obj->data->products[0]->brand;
         //Реальная цена товара
@@ -51,8 +56,9 @@ function ShowCard(array $arr){
                                 <strong>Бренд:</strong> " . $arr['brand'] . "<br>
         </p>
         <a class=\"btn  btn-outline-light btn-secondary\" target=\"_blank\" href=\"" . $arr['link'] . "\">Перейти на WB</a>
-        ".$arr['status']."        ".$arr['del']." 
-        <hr>";
+        ".$arr['status']."  ".$arr['graph']."  ".$arr['del']." 
+        <hr>
+        ";
     }
 
 ?>
@@ -69,6 +75,8 @@ function ShowCard(array $arr){
     <div class="col-sm-1">
     </div>
 </div>
+
+
 <?
 
 

@@ -91,14 +91,15 @@
                 <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Добавить ссылку для слежения</h2>
                 <? include 'add.php' ?>
                 <!-- Portfolio Grid Items-->
-                <!-- <div class="row justify-content-center"> -->
-                    <!-- Portfolio Item 1-->
+                <div class="row justify-content-center">
+                    <!-- Portfolio Item 1 -->
                     <!-- <div class="col-md-6 col-lg-4 mb-5">
-                        <div class="portfolio-item mx-auto" data-bs-toggle="modal" data-bs-target="#portfolioModal1">
-                            <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
+                        <div class="portfolio-item mx-auto" data-bs-toggle="modal" data-bs-target="#portfolioModal1"> -->
+                            <!-- <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
                                 <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
-                            </div>
-                            <img class="img-fluid" src="assets/img/portfolio/cabin.png" alt="..." />
+                            </div> -->
+                            <!-- <img class="img-fluid" src="assets/img/portfolio/cabin.png" alt="..." /> -->
+                        <!-- <a class="btn  btn-outline-light btn-danger" data-bs-target="#portfolioModal1">История изменения цены</a>
                         </div>
                     </div> -->
                     <!-- Portfolio Item 2-->
@@ -145,8 +146,8 @@
                             </div>
                             <img class="img-fluid" src="assets/img/portfolio/submarine.png" alt="..." />
                         </div>
-                    </div> 
-                </div> -->
+                    </div> -->
+                </div> 
             </div>
         </section>
         <!-- About Section-->
@@ -234,7 +235,7 @@
                             <div class="row justify-content-center">
                                 <div class="col-lg-8">
                                     <!-- Portfolio Modal - Title-->
-                                    <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0">Log Cabin</h2>
+                                    <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0">История изменения цены</h2>
                                     <!-- Icon Divider-->
                                     <div class="divider-custom">
                                         <div class="divider-custom-line"></div>
@@ -242,12 +243,14 @@
                                         <div class="divider-custom-line"></div>
                                     </div>
                                     <!-- Portfolio Modal - Image-->
-                                    <img class="img-fluid rounded mb-5" src="assets/img/portfolio/cabin.png" alt="..." />
+                                    <? include "graph.php"?>
+                                    <!-- <img class="img-fluid rounded mb-5" src="assets/img/portfolio/cabin.png" alt="..." /> -->
+
                                     <!-- Portfolio Modal - Text-->
                                     <p class="mb-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>
                                     <button class="btn btn-primary" data-bs-dismiss="modal">
                                         <i class="fas fa-xmark fa-fw"></i>
-                                        Close Window
+                                        Закрыть
                                     </button>
                                 </div>
                             </div>
