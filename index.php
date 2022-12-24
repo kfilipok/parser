@@ -50,7 +50,7 @@
                 <!-- Masthead Avatar Image-->
                 <!-- <img class="masthead-avatar mb-5" src="assets/img/avataaars.svg" alt="..." /> -->
                 <!-- Masthead Heading-->
-                <h1 class="masthead-heading text-uppercase mb-0">Следим за Wildberries.ru</h1>
+                <h1 class="masthead-heading text-uppercase mb-0"> Монитор цен wb.ru </h1>
                 <!-- Icon Divider-->
                 <div class="divider-custom divider-light">
                     <div class="divider-custom-line"></div>
@@ -67,8 +67,9 @@
                 } else {
                     $helloMessage = "   <p class=\"lead\">
                                             Зарегистрируйтесь<br>
-                                            Добавьте ссылки на товары<br>
-                                            При изменении цен на них мы направим уведомление
+                                            Добавьте товар <br>
+                                            Будьте в курсе об изменившейся цене<br>
+                                            Оцените историю цены по графику
                                         </p>                
                                     ";
                 }

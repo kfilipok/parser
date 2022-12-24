@@ -21,7 +21,7 @@ while ($temp = mysqli_fetch_assoc($query)) {
         $data['name'] = $obj->data->products[0]->name;
         //Статус товара
         if ($temp['status'] == '1')
-            $data['status'] = "<a class=\"btn  btn-outline-light \" href=db.php?action=untrack&id=".$temp['id'].">Отклчить слежение</a>";
+            $data['status'] = "<a class=\"btn  btn-outline-light \" href=db.php?action=untrack&id=".$temp['id'].">Отключить слежение</a>";
         else 
             $data['status'] = "<a class=\"btn  btn-outline-light \" href=db.php?action=track&id=".$temp['id'].">Включить слежение</a>";
         //Кнопка удаления товара
