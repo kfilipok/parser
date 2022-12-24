@@ -8,7 +8,9 @@ if (isset($_COOKIE['id']) and isset($_COOKIE['hash'])) {
     $disabled = 'disabled';
     $placeholder = "placeholder=\"Отслеживание доступно только зарегистрированным пользователям\" ";
 }
-$wid = GetIdByAddr($_POST['adress']);
+if (ctype_digit($_POST['adress']))
+    $wid = $_POST['adress'];
+else $wid = GetIdByAddr($_POST['adress']);
 $marketplace = GetMarketplace($_POST['adress']);
 //Получаем историю цен (цены на сегодня нет, ее получаем отдельно)
 $tempArr = PriceHistory($wid);
