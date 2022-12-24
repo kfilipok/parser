@@ -105,6 +105,7 @@ if(isset($_POST['submit']))
                             </div>
                             <div class="form-group">
                                 <br><button name="submit" type="submit" class="btn btn-success">Авторизоваться</button>
+                                <a href="restore.php" class="btn btn-secondary active" role="button" aria-pressed="true">Восстановить пароль</a>
                             </div>
                         </form>
                     </div>
