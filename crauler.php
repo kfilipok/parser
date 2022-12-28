@@ -1,11 +1,10 @@
 <?
 require_once 'functions.php';
-echo '<pre>';
+
 $query = mysqli_query($link, "SELECT * FROM `products` WHERE `status` = '1'");
 while ($temp = mysqli_fetch_assoc($query)) {
     //Проверяем сайт по ай ди товара
     $obj = GetObjById($temp['pwid']);
-    print_r($obj);
     //сохраняем ай ди порльзователя
     $userId = $temp['uid'];
     //Цена, последний раз полученная на сайте вайлдберриз
