@@ -85,6 +85,7 @@ $data = json_encode($tempArr);
 <!-- Готовим контейнер для диаграммы -->
 <div id="content" align="center">
  <canvas id="myChart" width="628" height="400"></canvas>
+ <strong>Важно: на графике отображается цена без учета личной скидки.</strong><br>
 </div>
 
 

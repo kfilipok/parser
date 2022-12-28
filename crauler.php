@@ -8,24 +8,25 @@ while ($temp = mysqli_fetch_assoc($query)) {
     //сохраняем ай ди порльзователя
     $userId = $temp['uid'];
     //Цена, последний раз полученная на сайте вайлдберриз
-    $lastPrice = $temp['last_price'];
+    // $lastPrice = $temp['last_price'];
     //Отслеживаемая цена
     $data['alertPrice'] = $temp['alert_price'];
     //цена товара в данный момент
     $data['salePrice'] = substr($obj->data->products[0]->salePriceU, 0, strlen($obj->data->products[0]->salePriceU) - 2);
     //Средняя ценна (примерно равна цене с личной скидкой)
-    $data['averagePrice'] = substr($obj->data->products[0]->averagePrice, 0, strlen($obj->data->products[0]->salePriceU) - 2);
+    //$data['averagePrice'] = substr($obj->data->products[0]->averagePrice, 0, strlen($obj->data->products[0]->salePriceU) - 2);
 
     //Если цена товара изменилась
     if($data['salePrice'] != $temp['last_price']){
         //Если примерная цена товара  приблизилась к отслеживаемой цене ближе чем на BEST_PRICE, собираем данные в массив $product
         //или примерная цена товара стала ниже или равна отслеживаемой цене, собираем данные в массив $product
-        if ($data['averagePrice'] - $data['alertPrice'] <= BEST_PRICE || $data['averagePrice'] <= $data['alertPrice']) {
+       // if ($data['averagePrice'] - $data['alertPrice'] <= BEST_PRICE || $data['averagePrice'] <= $data['alertPrice']) {
             $data['alertType'] = 'minAveragePrice';
+            $data['lastPrice'] = $temp['last_price'];
             $data['name'] = $obj->data->products[0]->name;
             $data['link'] = 'https://www.wildberries.ru/catalog/'.$temp['pwid'].'/detail.aspx';
             $product[$userId][] = $data;
-        }
+        //}
         
         // //Если 
         // if () {
@@ -51,8 +52,10 @@ foreach ($product as $uId => $values) {
         
         $goods .= '<a href='.$data['link'].'><strong>' . $data['name'] . '</strong></a><br>';
         $goods .= '<strong>Стоимость (без скидок)</strong> - ' . $data['salePrice'] . ' руб.<br>';
-        $goods .= 'Средняя цена - '. $data['averagePrice'] . ' руб.<br>';
-        $goods .= '<a href='.$data['link'].'>Перейти и купить </a><br><hr>';
+        $goods .= 'Прежняя стоимость - ' . $data['lastPrice'] . ' руб.<br>';
+        //$goods .= 'Средняя цена - '. $data['averagePrice'] . ' руб.<br>';
+        $goods .= '<a href=http://bcost.ru/>bcost.ru </a><br><hr>';
+
         print_r($goods);
         
         $message = '
