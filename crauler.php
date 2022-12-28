@@ -1,10 +1,11 @@
 <?
 require_once 'functions.php';
-
+echo '<pre>';
 $query = mysqli_query($link, "SELECT * FROM `products` WHERE `status` = '1'");
 while ($temp = mysqli_fetch_assoc($query)) {
     //Проверяем сайт по ай ди товара
     $obj = GetObjById($temp['pwid']);
+    print_r($obj);
     //сохраняем ай ди порльзователя
     $userId = $temp['uid'];
     //Цена, последний раз полученная на сайте вайлдберриз
@@ -13,6 +14,8 @@ while ($temp = mysqli_fetch_assoc($query)) {
     $data['alertPrice'] = $temp['alert_price'];
     //цена товара в данный момент
     $data['salePrice'] = substr($obj->data->products[0]->salePriceU, 0, strlen($obj->data->products[0]->salePriceU) - 2);
+    //Бренд
+    $data['brand'] = $obj->data->products[0]->brand;
     //Средняя ценна (примерно равна цене с личной скидкой)
     //$data['averagePrice'] = substr($obj->data->products[0]->averagePrice, 0, strlen($obj->data->products[0]->salePriceU) - 2);
 
@@ -25,7 +28,7 @@ while ($temp = mysqli_fetch_assoc($query)) {
             $data['lastPrice'] = $temp['last_price'];
             $data['name'] = $obj->data->products[0]->name;
             $data['link'] = 'https://www.wildberries.ru/catalog/'.$temp['pwid'].'/detail.aspx';
-            $data['graph'] = 'http://bcost.ru/graph.php?wid=' . $temp['pwid'] . '&brand=&name='. $data['name'];
+            $data['graph'] = 'http://bcost.ru/graph.php?wid=' . $temp['pwid'] . '&brand=' . $data['brand'] . '&name='. urlencode($data['name']);
             $product[$userId][] = $data;
         //}
         
@@ -52,6 +55,7 @@ foreach ($product as $uId => $values) {
     foreach ($values as $data) {
         
         $goods .= '<a href='.$data['link'].'><strong>' . $data['name'] . '</strong></a><br>';
+        $goods .= 'Брэнд: ' . $data['brand'] . '<br>';
         $goods .= '<strong>Стоимость (без скидок)</strong> - ' . $data['salePrice'] . ' руб.<br>';
         $goods .= 'Прежняя стоимость - ' . $data['lastPrice'] . ' руб.<br>';
         //$goods .= 'Средняя цена - '. $data['averagePrice'] . ' руб.<br>';
