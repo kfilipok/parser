@@ -25,6 +25,7 @@ while ($temp = mysqli_fetch_assoc($query)) {
             $data['lastPrice'] = $temp['last_price'];
             $data['name'] = $obj->data->products[0]->name;
             $data['link'] = 'https://www.wildberries.ru/catalog/'.$temp['pwid'].'/detail.aspx';
+            $data['graph'] = 'http://bcost.ru/graph.php?wid=' . $temp['pwid'] . '&brand=&name='. $data['name'];
             $product[$userId][] = $data;
         //}
         
@@ -54,7 +55,7 @@ foreach ($product as $uId => $values) {
         $goods .= '<strong>Стоимость (без скидок)</strong> - ' . $data['salePrice'] . ' руб.<br>';
         $goods .= 'Прежняя стоимость - ' . $data['lastPrice'] . ' руб.<br>';
         //$goods .= 'Средняя цена - '. $data['averagePrice'] . ' руб.<br>';
-        $goods .= '<a href=http://bcost.ru/>bcost.ru </a><br><hr>';
+        $goods .= '<a href=' . $data['graph'] . '>График изменения цены</a><br><hr>';
 
         print_r($goods);
         
