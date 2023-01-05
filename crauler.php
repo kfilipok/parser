@@ -19,7 +19,7 @@ while ($temp = mysqli_fetch_assoc($query)) {
     //$data['averagePrice'] = substr($obj->data->products[0]->averagePrice, 0, strlen($obj->data->products[0]->salePriceU) - 2);
 
     //Если цена товара изменилась
-    if($data['salePrice'] != $temp['last_price'] && $temp['last_price'] != 0){
+    if($data['salePrice'] != $temp['last_price']){
         //Если примерная цена товара  приблизилась к отслеживаемой цене ближе чем на BEST_PRICE, собираем данные в массив $product
         //или примерная цена товара стала ниже или равна отслеживаемой цене, собираем данные в массив $product
        // if ($data['averagePrice'] - $data['alertPrice'] <= BEST_PRICE || $data['averagePrice'] <= $data['alertPrice']) {
